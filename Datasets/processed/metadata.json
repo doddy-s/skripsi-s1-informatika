@@ -1,19 +1,30 @@
 {
-  "dataset": {
-    "longest_text": 45,
-    "count": 11659,
-    "file_name": "indonesian-hate-speech-processed-dataset",
-    "file_format": "csv"
-  },
-  "dataset_tokenized": {
-    "longest_text": 45,
-    "count": 11659,
-    "file_name": "indonesian-hate-speech-processed-dataset-tokenized",
-    "file_format": "parquet"
-  },
-  "word_index": {
-    "count": 9905,
-    "file_name": "indonesian-hate-speech-processed-word-index",
-    "file_format": "json"
+  "name": "optimalisasi-model-machine-learning-untuk-klasifikasi-ujaran-kebencian-pada-x-twitter",
+  "author": "doddy-s",
+  "created_at": "2024-11-23T22:16:28.616924",
+  "meta": {
+    "dataset": {
+      "longest_text": 45,
+      "count": 11659,
+      "file_name": "indonesian-hate-speech-processed-dataset",
+      "file_format": "csv"
+    },
+    "dataset_ready_to_train": {
+      "longest_text": 45,
+      "count": 11659,
+      "file_name": "indonesian-hate-speech-processed-dataset-ready-to-train",
+      "file_format": "parquet"
+    },
+    "dataset_ready_to_train_json": {
+      "longest_text": 45,
+      "count": 11659,
+      "file_name": "indonesian-hate-speech-processed-dataset-ready-to-train-json",
+      "file_format": "json"
+    },
+    "word_index": {
+      "count": 9905,
+      "file_name": "indonesian-hate-speech-processed-word-index",
+      "file_format": "json"
+    }
   }
 }
