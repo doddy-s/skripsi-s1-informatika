@@ -1,0 +1,19 @@
+{
+  "dataset": {
+    "longest_text": 45,
+    "count": 11659,
+    "file_name": "indonesian-hate-speech-processed-dataset",
+    "file_format": "csv"
+  },
+  "dataset_tokenized": {
+    "longest_text": 45,
+    "count": 11659,
+    "file_name": "indonesian-hate-speech-processed-dataset-tokenized",
+    "file_format": "parquet"
+  },
+  "word_index": {
+    "count": 9905,
+    "file_name": "indonesian-hate-speech-processed-word-index",
+    "file_format": "json"
+  }
+}
