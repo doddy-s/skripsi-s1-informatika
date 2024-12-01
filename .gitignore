@@ -1,0 +1,4 @@
+Datasets/hate-speech-detection-curated-dataset/HateSpeechDataset.csv
+Datasets/hate-speech-detection-curated-dataset/HateSpeechDatasetBalanced.csv
+Datasets/glove.twitter.27B/glove.twitter.27B.25d.txt
+Datasets/glove.twitter.27B/glove.twitter.27B.100d.txt
