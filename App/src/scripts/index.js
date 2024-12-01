@@ -75,52 +75,38 @@ async function onTweetBlocked() {
   } catch {}
 }
 
-/**
- * Blocks a tweet based on its text content.
- *
- * @param {HTMLElement} tweetTextElement - The tweet text element to process.
- */
 async function blockTweet(tweetTextElement) {
-  const $tweetText = $(tweetTextElement)
-
   if (await classify(tweetTextElement.textContent)) {
-    $tweetText.addClass('hidden')
+    tweetTextElement.classList.add('hidden')
 
-    $tweetText.parent().append(TWEET_HIDER)
+    tweetTextElement.parentElement.appendChild(TWEET_HIDER)
 
     onTweetBlocked()
   }
 }
 
-/**
- *
- * @param {HTMLElement} tweetTextElement
- */
 function onTweetTextLoaded(tweetTextElement) {
-  const $tweet = $(tweetTextElement)
-  if ($tweet.attr('project-s') === 'labeled') {
+  if (tweetTextElement.getAttribute('project-s') === 'labeled') {
     return
   }
 
-  $tweet.attr('project-s', 'labeled')
+  tweetTextElement.setAttribute('project-s', 'labeled')
 
   blockTweet(tweetTextElement)
 }
 
-/**
- * @param {Node} node
- */
 function onNodeAdded(node) {
   if (node.nodeType === Node.ELEMENT_NODE) {
     if (
       node.hasAttribute('data-testid') &&
       node.getAttribute('data-testid') === 'cellInnerDiv'
     ) {
-      $(node)
-        .find('div[data-testid="tweetText"]')
-        .each((_, tweetTextNode) => {
-          onTweetTextLoaded(tweetTextNode)
-        })
+      const tweetTextNodes = node.querySelectorAll(
+        'div[data-testid="tweetText"]'
+      )
+      tweetTextNodes.forEach((tweetTextNode) => {
+        onTweetTextLoaded(tweetTextNode)
+      })
     }
   }
 }
@@ -154,9 +140,13 @@ async function fetchJson(url) {
       throw new Error(`Error during fetching Json: ${response.status}`)
     }
     const data = await response.json()
+
+    if (!data) {
+      throw new Error('Data fetched is empty, url: ' + url)
+    }
     return data
   } catch (error) {
-    console.error('Error fetching the JSON file:', error)
+    console.error('fetchJson function error:', error)
   }
 }
 
@@ -164,30 +154,34 @@ async function fetchModel(url) {
   return await tf.loadLayersModel(url)
 }
 
-function main() {
-  fetchJson(
-    'https://raw.githubusercontent.com/doddy-s/skripsi-s1-informatika/refs/heads/main/Datasets/processed/metadata.json'
-  ).then((metadata) => {
-    METADATA = metadata
-
+async function main() {
+  try {
+    METADATA = await fetchJson(
+      'https://raw.githubusercontent.com/doddy-s/skripsi-s1-informatika/refs/heads/main/Datasets/processed/metadata.json'
+    )
     console.log('METADATA', METADATA)
 
-    fetchJson(
+    WORD_INDEX = await fetchJson(
       'https://raw.githubusercontent.com/doddy-s/skripsi-s1-informatika/refs/heads/main/Datasets/processed/indonesian-hate-speech-processed-word-index.json'
-    ).then((word_index) => {
-      WORD_INDEX = word_index
+    )
+    console.log(
+      'WORD_INDEX',
+      Object.fromEntries(Object.entries(WORD_INDEX).slice(0, 10))
+    )
 
-      fetchModel(
-        'https://raw.githubusercontent.com/doddy-s/akunin-model/refs/heads/main/indonesian-hate-speech-binary-classification-12k/model.json'
-      ).then((model) => {
-        MODEL = model
+    MODEL = await fetchModel(
+      'https://raw.githubusercontent.com/doddy-s/akunin-model/refs/heads/main/indonesian-hate-speech-binary-classification-12k/model.json'
+    )
+    console.log('MODEL', MODEL)
 
-        console.log('MODEL', MODEL)
-
-        startMutationObserver()
-      })
-    })
-  })
+    startMutationObserver()
+  } catch (error) {
+    console.error('main function error:', error)
+    throw new Error(error.message)
+  }
 }
 
-jQuery(main)
+main().catch(() => {
+  console.info('HateX failed to start. Exiting...')
+  process.exit(1)
+})

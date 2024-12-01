@@ -18,7 +18,6 @@
       "matches": ["https://twitter.com/*", "https://x.com/*"],
       "js": [
         "src/scripts/tf.es2017.js",
-        "src/scripts/jquery-3.7.1.min.js",
         "src/scripts/preprocessor.js",
         "src/scripts/index.js"
       ],
