@@ -1,0 +1,24 @@
+{
+  "name": "optimalisasi-model-machine-learning-untuk-klasifikasi-ujaran-kebencian-pada-x-twitter",
+  "author": "doddy-s",
+  "created_at": "2024-12-01T17:02:16.799666",
+  "meta": {
+    "dataset": {
+      "longest_text": 310,
+      "count": 729045,
+      "file_name": "english-hate-speech-processed-dataset",
+      "file_format": "csv"
+    },
+    "dataset_ready_to_train": {
+      "longest_text": 310,
+      "count": 729045,
+      "file_name": "english-hate-speech-processed-dataset-ready-to-train",
+      "file_format": "parquet"
+    },
+    "word_index": {
+      "count": 107404,
+      "file_name": "english-hate-speech-processed-word-index",
+      "file_format": "json"
+    }
+  }
+}
